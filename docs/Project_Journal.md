@@ -1,6 +1,6 @@
 # Project Journal
 
-## Day 1
+## Sprint 1
 
 - Project initialized
 - Git configured
@@ -49,3 +49,28 @@
 - AWS S3
 - IAM Roles
 - Storage Integration
+
+
+## Sprint 2
+
+### Completed
+
+- Created AWS S3 bucket
+- Designed enterprise folder structure
+- Uploaded NYC Yellow Taxi January–April 2023 dataset
+
+### Learned
+
+- Enterprise Landing Zone design
+- S3 bucket organization
+- Raw data ingestion concepts
+- AWS S3 folder hierarchy
+
+### Next Steps
+
+- Create Snowflake Storage Integration
+- Configure AWS IAM Role
+- Configure Trust Relationship
+- Create External Stage
+- Create File Format
+- Load Bronze Layer
