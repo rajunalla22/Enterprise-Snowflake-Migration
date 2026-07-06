@@ -47,8 +47,6 @@
 
 #### Next Steps
 - AWS S3
-- IAM Roles
-- Storage Integration
 
 
 ## Sprint 2
@@ -64,13 +62,29 @@
 - Enterprise Landing Zone design
 - S3 bucket organization
 - Raw data ingestion concepts
-- AWS S3 folder hierarchy
 
 ### Next Steps
 
-- Create Snowflake Storage Integration
-- Configure AWS IAM Role
-- Configure Trust Relationship
+
+## Sprint 3
+
+### Completed
+- Created AWS IAM Role
+- Created Policy which Allows Snowflake Storage Integration to read NYC Taxi data from S3. 
+
+### Learned
+
+- AWS S3 folder hierarchy
+- AWS Role & Policy
+
+### Challenges
+
+- Encountered AWS IAM AssumeRole authorization issue during Snowflake Storage Integration.
+- Investigated IAM Role, IAM Policy, Trust Relationship and External ID configuration.
+- Chose to continue development using Internal Stage to avoid blocking project progress.
+
+### Next Steps
+
 - Create External Stage
 - Create File Format
 - Load Bronze Layer
