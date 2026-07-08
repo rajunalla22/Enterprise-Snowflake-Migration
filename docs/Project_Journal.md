@@ -71,11 +71,14 @@
 ### Completed
 - Created AWS IAM Role
 - Created Policy which Allows Snowflake Storage Integration to read NYC Taxi data from S3. 
+- Switched to Internal Stage
+- Uploaded files successfully
 
 ### Learned
 
 - AWS S3 folder hierarchy
 - AWS Role & Policy
+- Internal Stage creation
 
 ### Challenges
 
