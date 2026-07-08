@@ -91,3 +91,43 @@
 - Create External Stage
 - Create File Format
 - Load Bronze Layer
+
+## Sprint 4
+
+### Completed
+- Created Internal File Format (PARQUET)
+- Used INFER_SCHEMA to discover dataset columns
+- Designed BRONZE.RAW_TRIPS table
+- Loaded 4 Parquet files into Bronze using COPY INTO
+- Added Technical Metadata columns
+- Validated successful load using audit queries
+
+### Learned
+
+- Internal Stage
+- Parquet File Format
+- INFER_SCHEMA
+- COPY INTO
+- Metadata Columns
+- Batch Loading
+- Source File Tracking
+- Bronze Layer Design
+
+### Challenges
+
+- Understood how multiple files are loaded into one Bronze table.
+- Learned why metadata columns are required for auditing and troubleshooting.
+
+### Validation
+
+- Total Rows : 12,672,737
+- Files Loaded : 4
+- Batch ID : 20260708_BATCH001
+
+### Next Steps
+
+- Create Silver Layer
+- Convert Epoch timestamps
+- Cast Variant columns
+- Data Quality Checks
+- Build Silver Table
