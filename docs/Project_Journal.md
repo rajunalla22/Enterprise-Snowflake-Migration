@@ -131,3 +131,40 @@
 - Cast Variant columns
 - Data Quality Checks
 - Build Silver Table
+
+
+## Sprint 5
+
+### Completed
+- Created SILVER.TRIPS table
+- Converted Epoch timestamps to TIMESTAMP
+- Converted VARIANT columns to appropriate data types
+- Applied Data Quality rules
+- Loaded cleaned data from Bronze to Silver
+
+### Learned
+- Bronze vs Silver layer responsibilities
+- Data type conversion
+- Epoch timestamp conversion
+- TRY_TO_NUMBER()
+- Data Quality filtering
+- INSERT...SELECT transformation
+
+### Challenges
+- Encountered invalid Epoch timestamps (2001 records)
+- Found non-numeric values in numeric columns
+- Applied TRY_TO_NUMBER()
+- Filtered invalid business records before loading Silver
+
+### Validation
+- Validated Silver row count
+- Compared Bronze vs Silver records
+- Verified timestamps converted correctly
+- Verified metadata columns populated
+
+
+### Next Steps
+- Build Gold Layer
+- Create Dimension Tables
+- Create Fact Trips Table
+- Implement Streams & Tasks
