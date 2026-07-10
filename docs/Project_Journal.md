@@ -168,3 +168,69 @@
 - Create Dimension Tables
 - Create Fact Trips Table
 - Implement Streams & Tasks
+
+## Sprint 6
+
+### Completed
+
+- Created GOLD.DIM_DATE table
+- Learned Date Dimension concepts and Star Schema design
+- Explored TABLE(GENERATOR()) for generating calendar records
+- Learned SEQ4() and ROW_NUMBER() usage
+- Generated FULL_DATE using DATEADD()
+- Created DATE_KEY in YYYYMMDD format
+- Used CTE (WITH CALENDAR) to simplify date generation
+- Loaded DIM_DATE using INSERT INTO with CTE
+- Populated:
+  - DATE_KEY
+  - FULL_DATE
+  - YEAR
+  - QUARTER
+  - MONTH
+  - MONTH_NAME
+  - WEEK_OF_YEAR
+  - DAY_OF_MONTH
+  - DAY_NAME
+  - DAY_OF_WEEK
+  - IS_WEEKEND
+- Successfully loaded 365 calendar records into DIM_DATE
+- Validated generated calendar data
+
+### Learned
+
+- Purpose of a Date Dimension in a Star Schema
+- Difference between Natural Keys and Surrogate/Dimension Keys
+- Why DATE_KEY is stored as YYYYMMDD
+- Using GENERATOR() to create virtual rows
+- Difference between SEQ4() and ROW_NUMBER()
+- Why ROW_NUMBER() - 1 is used with DATEADD()
+- DATEADD() returns TIMESTAMP and should be cast to DATE
+- Benefits of using CTEs for reusable logic
+- CTE usage with INSERT statements in Snowflake
+- DAYOFWEEK() numbering (0 = Sunday, 6 = Saturday)
+- ISO Week Number behavior (2023-01-01 belongs to Week 52)
+- Importance of precomputing business attributes in Gold layer
+- Enterprise considerations for maintaining DIM_DATE
+
+### Challenges
+
+- Understood why DATEADD() returns TIMESTAMP
+- Resolved Snowflake INSERT + CTE syntax
+- Clarified ISO week numbering behavior
+- Validated DAY_OF_WEEK and IS_WEEKEND logic
+
+### Validation
+
+- Verified total row count (365)
+- Verified DATE_KEY generation
+- Verified FULL_DATE generation
+- Verified YEAR, QUARTER, MONTH and MONTH_NAME
+- Verified DAY_NAME and DAY_OF_WEEK
+- Verified IS_WEEKEND values
+- Verified WEEK_OF_YEAR behavior
+
+### Next Steps
+
+- Create GOLD.DIM_LOCATION
+- Load DIM_LOCATION from SILVER.TRIPS
+- Validate DIM_LOCATION

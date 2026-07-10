@@ -1,0 +1,21 @@
+USE ROLE ACCOUNTADMIN;
+USE WAREHOUSE NYC_WH;
+USE DATABASE NYC_TAXI_DB;
+USE SCHEMA GOLD;
+
+CREATE OR REPLACE TABLE DIM_DATE (
+
+    DATE_KEY          NUMBER        NOT NULL,
+    FULL_DATE         DATE          NOT NULL,
+
+    YEAR              NUMBER,
+    QUARTER           NUMBER,
+    MONTH             NUMBER,
+    MONTH_NAME        STRING,
+    WEEK_OF_YEAR      NUMBER,
+    DAY_OF_MONTH      NUMBER,
+    DAY_NAME          STRING,
+    DAY_OF_WEEK       NUMBER,
+    IS_WEEKEND        BOOLEAN
+
+);
