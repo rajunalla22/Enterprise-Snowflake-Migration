@@ -51,3 +51,27 @@ The issue is currently under investigation.
 To avoid blocking project progress, the project will continue using a Snowflake Internal Stage.
 
 After completing the end-to-end migration project, AWS Storage Integration will be revisited and integrated as Version 2 of the project.
+
+## Sprint 6 Issues
+
+### Issue
+
+INSERT statement failed when placed after CTE.
+
+### Cause
+
+Snowflake expects the WITH clause immediately before the SELECT statement of the INSERT.
+
+### Resolution
+
+Use:
+
+INSERT INTO target_table
+WITH cte AS (...)
+SELECT ...
+FROM cte;
+
+instead of
+
+WITH cte AS (...)
+INSERT INTO ...

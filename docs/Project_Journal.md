@@ -174,44 +174,30 @@
 ### Completed
 
 - Created GOLD.DIM_DATE table
-- Learned Date Dimension concepts and Star Schema design
-- Explored TABLE(GENERATOR()) for generating calendar records
-- Learned SEQ4() and ROW_NUMBER() usage
-- Generated FULL_DATE using DATEADD()
-- Created DATE_KEY in YYYYMMDD format
-- Used CTE (WITH CALENDAR) to simplify date generation
-- Loaded DIM_DATE using INSERT INTO with CTE
-- Populated:
-  - DATE_KEY
-  - FULL_DATE
-  - YEAR
-  - QUARTER
-  - MONTH
-  - MONTH_NAME
-  - WEEK_OF_YEAR
-  - DAY_OF_MONTH
-  - DAY_NAME
-  - DAY_OF_WEEK
-  - IS_WEEKEND
-- Successfully loaded 365 calendar records into DIM_DATE
-- Validated generated calendar data
+- Generated Date Dimension using GENERATOR()
+- Loaded Date Dimension using DATEADD()
+- Learned ISO week numbering behavior
+- Created GOLD.DIM_LOCATION
+- Created CSV File Format
+- Loaded Taxi Zone Lookup into Dimension table
+- Designed Star Schema
+- Created GOLD.FACT_TRIPS
+- Loaded Fact table from SILVER.TRIPS
+- Joined Fact with DIM_DATE and DIM_LOCATION
+- Performed end-to-end Gold Layer validation
 
 ### Learned
 
-- Purpose of a Date Dimension in a Star Schema
-- Difference between Natural Keys and Surrogate/Dimension Keys
-- Why DATE_KEY is stored as YYYYMMDD
-- Using GENERATOR() to create virtual rows
-- Difference between SEQ4() and ROW_NUMBER()
-- Why ROW_NUMBER() - 1 is used with DATEADD()
-- DATEADD() returns TIMESTAMP and should be cast to DATE
-- Benefits of using CTEs for reusable logic
-- CTE usage with INSERT statements in Snowflake
-- DAYOFWEEK() numbering (0 = Sunday, 6 = Saturday)
-- ISO Week Number behavior (2023-01-01 belongs to Week 52)
-- Importance of precomputing business attributes in Gold layer
-- Enterprise considerations for maintaining DIM_DATE
-
+- Difference between Fact and Dimension tables
+- Purpose of Star Schema
+- Why Date Dimension is precomputed
+- Importance of Lookup tables
+- Why Dimensions are joined while loading Facts
+- Difference between Natural Keys and Surrogate Keys
+- How CTEs improve SQL readability
+- Using INSERT INTO ... WITH in Snowflake
+- Enterprise validation techniques for Gold Layer
+- Referential Integrity concepts
 ### Challenges
 
 - Understood why DATEADD() returns TIMESTAMP
@@ -221,13 +207,22 @@
 
 ### Validation
 
-- Verified total row count (365)
-- Verified DATE_KEY generation
-- Verified FULL_DATE generation
-- Verified YEAR, QUARTER, MONTH and MONTH_NAME
-- Verified DAY_NAME and DAY_OF_WEEK
-- Verified IS_WEEKEND values
-- Verified WEEK_OF_YEAR behavior
+- Row Count Validation
+- Fact vs Silver Count Validation
+- Date Dimension Validation
+- Location Dimension Validation
+- Borough-wise Trip Count
+- Aggregate Measure Validation
+- Null Check
+- Negative Value Check
+- Passenger Count Validation
+- Date Range Validation
+- Missing Location Validation
+- Missing Date Validation
+- Batch Validation
+- Source Validation
+- Referential Integrity Validation
+
 
 ### Next Steps
 
