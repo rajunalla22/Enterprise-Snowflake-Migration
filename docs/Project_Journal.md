@@ -229,3 +229,89 @@
 - Create GOLD.DIM_LOCATION
 - Load DIM_LOCATION from SILVER.TRIPS
 - Validate DIM_LOCATION
+
+# Sprint 7 - Incremental Loading using Snowflake Streams
+
+## Objective
+Started implementing Change Data Capture (CDC) using Snowflake Streams to support incremental data loading from the Silver layer to the Gold layer.
+
+---
+
+### Completed Tasks
+
+#### 1. Created Stream on SILVER.TRIPS
+
+Created a standard stream to capture all future DML changes (INSERT, UPDATE, DELETE) on the SILVER.TRIPS table.
+
+```sql
+CREATE OR REPLACE STREAM SILVER.TRIPS_STREAM
+ON TABLE SILVER.TRIPS;
+```
+
+---
+
+#### 2. Verified Stream Metadata
+
+Executed:
+
+```sql
+SHOW STREAMS;
+```
+
+Verified:
+
+- Stream created successfully.
+- Stream type: Standard
+- Source table: SILVER.TRIPS
+- Stream status validated.
+
+---
+
+#### 3. Tested Initial Stream Output
+
+Executed:
+
+```sql
+SELECT *
+FROM SILVER.TRIPS_STREAM;
+```
+
+Result:
+
+- Returned **0 rows**.
+
+Reason:
+
+The stream was created **after** the January dataset had already been loaded into SILVER.TRIPS. Snowflake Streams only capture changes that occur **after the stream is created**.
+
+This confirms the expected CDC behavior.
+
+---
+
+## Learning
+
+Key understanding gained during this sprint:
+
+- Snowflake Streams are metadata objects.
+- Streams do not duplicate table data.
+- Streams capture only future INSERT, UPDATE, and DELETE operations.
+- Existing records present before stream creation are not tracked.
+- Streams are the foundation for implementing incremental ETL pipelines.
+
+---
+
+## Validation
+
+Completed validations:
+
+- Stream created successfully.
+- Stream visible using SHOW STREAMS.
+- Stream queried successfully.
+- Initial stream contains 0 rows as expected because no new DML occurred after stream creation.
+
+## Next Steps
+
+- Load incremental taxi data into SILVER.TRIPS.
+- Verify records captured by TRIPS_STREAM.
+- Implement MERGE INTO GOLD.FACT_TRIPS using Stream.
+- Validate incremental loading.
