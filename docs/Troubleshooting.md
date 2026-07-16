@@ -75,3 +75,31 @@ instead of
 
 WITH cte AS (...)
 INSERT INTO ...
+
+
+
+## Source Data Anomaly - Historical Taxi Records
+
+### Problem
+
+Validation identified five taxi trips with pickup dates in 2008/2009 after loading the February dataset.
+
+### Investigation
+
+- Verified timestamp conversion logic.
+- Compared Bronze and Silver layers.
+- Confirmed records exist in the original source file.
+
+### Root Cause
+
+Source dataset contains historical records.
+
+### Resolution
+
+No ETL changes required.
+
+Gold layer automatically excludes these records because FACT_TRIPS joins with DIM_DATE, which contains only 2023 dates.
+
+### Status
+
+Resolved (Source Data Issue)

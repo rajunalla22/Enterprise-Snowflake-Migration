@@ -239,54 +239,13 @@ Started implementing Change Data Capture (CDC) using Snowflake Streams to suppor
 
 ### Completed Tasks
 
-#### 1. Created Stream on SILVER.TRIPS
-
-Created a standard stream to capture all future DML changes (INSERT, UPDATE, DELETE) on the SILVER.TRIPS table.
-
-```sql
-CREATE OR REPLACE STREAM SILVER.TRIPS_STREAM
-ON TABLE SILVER.TRIPS;
-```
-
----
-
-#### 2. Verified Stream Metadata
-
-Executed:
-
-```sql
-SHOW STREAMS;
-```
-
-Verified:
-
-- Stream created successfully.
-- Stream type: Standard
-- Source table: SILVER.TRIPS
-- Stream status validated.
-
----
-
-#### 3. Tested Initial Stream Output
-
-Executed:
-
-```sql
-SELECT *
-FROM SILVER.TRIPS_STREAM;
-```
-
-Result:
-
-- Returned **0 rows**.
-
-Reason:
-
-The stream was created **after** the January dataset had already been loaded into SILVER.TRIPS. Snowflake Streams only capture changes that occur **after the stream is created**.
-
-This confirms the expected CDC behavior.
-
----
+- Created TRIPS_STREAM on SILVER.TRIPS
+- Created VW_TRIPS_TRANSFORMED
+- Added TRIP_HASH_KEY using SHA2 hashing
+- Cleaned 5 invalid historical records (2008/2009)
+- Recreated GOLD.FACT_TRIPS with TRIP_HASH_KEY
+- Implemented MERGE statement
+- Loaded January + February data into GOLD
 
 ## Learning
 
@@ -299,6 +258,13 @@ Key understanding gained during this sprint:
 - Streams are the foundation for implementing incremental ETL pipelines.
 
 ---
+  
+### MERGE Statistics
+
+Inserted Rows : 5,955,466
+Updated Rows  : 0
+
+Execution Time : ~4.2 seconds
 
 ## Validation
 
@@ -309,9 +275,34 @@ Completed validations:
 - Stream queried successfully.
 - Initial stream contains 0 rows as expected because no new DML occurred after stream creation.
 
+### Additional Validation - February Incremental Dataset
+
+After loading the February 2023 Parquet file into the Bronze and Silver layers, several validation checks were performed.
+
+#### Validation Performed
+
+- Verified total row count for January and February datasets.
+- Verified source file distribution using SOURCE_FILE_NAME.
+- Validated pickup date distribution.
+- Identified 5 historical records (2008/2009).
+- Confirmed those records originated from the source dataset rather than ETL transformation.
+- Verified those records do not propagate to the Gold layer because FACT_TRIPS is loaded using an INNER JOIN with DIM_DATE.
+- Verified March records (March 1, 6 and 7) exist in the source dataset and are expected.
+- Verified no null values or referential integrity issues in Gold.
+
+#### Observation
+
+The NYC Taxi dataset contains five historical records from 2008/2009. These records remain in the Silver layer for data lineage and auditing but are naturally excluded from the Gold layer because there are no corresponding records in DIM_DATE.
+
+This behaviour is documented as a source data anomaly rather than an ETL issue.
+
+### Status
+
+Initial full load completed successfully.
+
+
 ## Next Steps
 
-- Load incremental taxi data into SILVER.TRIPS.
-- Verify records captured by TRIPS_STREAM.
-- Implement MERGE INTO GOLD.FACT_TRIPS using Stream.
-- Validate incremental loading.
+- Simulate March incremental load
+- Validate Stream captures only new records
+- Execute incremental MERGE

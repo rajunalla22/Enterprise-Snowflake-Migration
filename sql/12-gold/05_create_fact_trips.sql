@@ -47,3 +47,46 @@ CREATE OR REPLACE TABLE FACT_TRIPS
     LOAD_BATCH_ID           STRING,
     RECORD_SOURCE           STRING
 );
+
+
+
+
+
+CREATE TABLE GOLD.FACT_TRIPS
+(
+    /*=========================================
+      Business Key
+    =========================================*/
+    TRIP_HASH_KEY VARCHAR(64),
+    /*=========================================
+      Dimension Keys
+    =========================================*/
+    DATE_KEY NUMBER(8),
+    PICKUP_LOCATION_ID NUMBER,
+    DROPOFF_LOCATION_ID NUMBER,
+    /*=========================================
+      Trip Information
+    =========================================*/
+    PICKUP_DATETIME TIMESTAMP_NTZ,
+    DROPOFF_DATETIME TIMESTAMP_NTZ,
+    VENDOR_ID NUMBER,
+    RATE_CODE_ID NUMBER,
+    PAYMENT_TYPE NUMBER,
+    PASSENGER_COUNT NUMBER,
+    TRIP_DISTANCE FLOAT,
+    FARE_AMOUNT FLOAT,
+    EXTRA FLOAT,
+    MTA_TAX FLOAT,
+    TIP_AMOUNT FLOAT,
+    TOLLS_AMOUNT FLOAT,
+    IMPROVEMENT_SURCHARGE FLOAT,
+    TOTAL_AMOUNT FLOAT,
+    CONGESTION_SURCHARGE FLOAT,
+    AIRPORT_FEE FLOAT,
+    /*=========================================
+      Audit Columns
+    =========================================*/
+    LOAD_TIMESTAMP TIMESTAMP_NTZ,
+    LOAD_BATCH_ID STRING,
+    RECORD_SOURCE STRING
+);
