@@ -103,3 +103,20 @@ Gold layer automatically excludes these records because FACT_TRIPS joins with DI
 ### Status
 
 Resolved (Source Data Issue)
+
+
+### Duplicate January Records Investigation
+
+### Problem
+
+- January row count appeared inconsistent.
+
+### Investigation
+- Deleted January partition.
+- Reloaded using finalized COPY INTO.
+- Verified stage path.
+- Compared hash counts.
+- Confirmed deterministic load.
+
+### Resolution
+- Accepted source dataset as authoritative after successful reload and validation.

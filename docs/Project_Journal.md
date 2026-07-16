@@ -233,20 +233,21 @@
 # Sprint 7 - Incremental Loading using Snowflake Streams
 
 ## Objective
-Started implementing Change Data Capture (CDC) using Snowflake Streams to support incremental data loading from the Silver layer to the Gold layer.
-
+- Implement Change Data Capture using Streams.
+- Create hash-based merge logic.
+- Support incremental loading into Gold.
 ---
 
-### Completed Tasks
-
-- Created TRIPS_STREAM on SILVER.TRIPS
-- Created VW_TRIPS_TRANSFORMED
-- Added TRIP_HASH_KEY using SHA2 hashing
-- Cleaned 5 invalid historical records (2008/2009)
-- Recreated GOLD.FACT_TRIPS with TRIP_HASH_KEY
-- Implemented MERGE statement
-- Loaded January + February data into GOLD
-
+### Completed
+- Created TRIPS_STREAM on SILVER.TRIPS.
+- Created VW_TRIPS_TRANSFORMED.
+- Added SHA2-256 Trip Hash Key.
+- Recreated FACT_TRIPS.
+- Implemented MERGE INTO.
+- Validated Bronze, Silver and Gold.
+- Identified and removed historical records from Silver.
+- Reloaded January data from the finalized stage folder.
+- Validated January, February and March row counts.
 ## Learning
 
 Key understanding gained during this sprint:
