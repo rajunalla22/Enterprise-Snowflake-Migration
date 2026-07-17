@@ -1,3 +1,16 @@
+/*==============================================================================
+Project      : NYC Taxi Analytics
+Layer        : Bronze
+Script       : 05_validate_load.sql
+Author       : Raju Nalla
+Description  : Validates successful loading of data into Bronze.
+
+Execution    : After Every Load
+Dependencies : RAW_TRIPS Table
+==============================================================================*/
+
+-- Validation Queries
+
 USE ROLE ACCOUNTADMIN;
 USE WAREHOUSE NYC_WH;
 USE DATABASE NYC_TAXI_DB;

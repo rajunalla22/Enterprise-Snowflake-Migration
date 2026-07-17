@@ -1,3 +1,20 @@
+/*==============================================================================
+Project      : NYC Taxi Analytics
+Layer        : Bronze
+Script       : 02_create_file_format.sql
+Author       : Raju Nalla
+Description  : Creates a Parquet file format used for loading raw taxi data.
+
+Execution    : One Time
+Dependencies : Internal Stage
+==============================================================================*/
+
+/*----------------------------------------------------------------------------
+Step 1 : Create File Format
+----------------------------------------------------------------------------*/
+
+-- Your SQL Code Here
+
 USE ROLE ACCOUNTADMIN;
 USE WAREHOUSE NYC_WH;
 USE DATABASE NYC_TAXI_DB;

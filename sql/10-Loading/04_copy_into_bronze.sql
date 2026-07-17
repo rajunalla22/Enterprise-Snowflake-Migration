@@ -1,3 +1,16 @@
+/*==============================================================================
+Project      : NYC Taxi Analytics
+Layer        : Bronze
+Script       : 04_copy_into_bronze.sql
+Author       : Raju Nalla
+Description  : Loads raw NYC Yellow Taxi data from Internal Stage into the
+               Bronze layer using COPY INTO.
+
+Execution    : Monthly / On Demand
+Dependencies : RAW_TRIPS Table
+==============================================================================*/
+
+
 COPY INTO BRONZE.RAW_TRIPS
 FROM
 (

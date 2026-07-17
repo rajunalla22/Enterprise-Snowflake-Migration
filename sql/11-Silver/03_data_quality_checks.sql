@@ -1,3 +1,17 @@
+/*==============================================================================
+Project      : NYC Taxi Analytics
+Layer        : Silver
+Script       : 03_data_quality_checks.sql
+Author       : Raju Nalla
+Description  : Performs data quality checks before loading data into Silver.
+
+Execution    : Every Load
+Dependencies : Bronze Layer
+==============================================================================*/
+
+
+-- Validation Queries
+
 -- Record Count
 SELECT COUNT(*) FROM BRONZE.RAW_TRIPS;
 SELECT COUNT(*) FROM SILVER.TRIPS;

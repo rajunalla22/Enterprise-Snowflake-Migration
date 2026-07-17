@@ -1,6 +1,13 @@
---=========================================================
--- VALIDATIONS
---=========================================================
+/*==============================================================================
+Project      : NYC Taxi Analytics
+Layer        : Silver
+Script       : 04_validate_silver.sql
+Author       : Raju Nalla
+Description  : Validates transformed data available in the Silver layer.
+
+Execution    : Every Load
+Dependencies : Silver.TRIPS
+==============================================================================*/
 
 -- Validation 1 - Total Row Count
 SELECT COUNT(*) AS TOTAL_ROWS

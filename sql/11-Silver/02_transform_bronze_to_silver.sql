@@ -1,5 +1,14 @@
+/*==============================================================================
+Project      : NYC Taxi Analytics
+Layer        : Silver
+Script       : 02_transform_bronze_to_silver.sql
+Author       : Raju Nalla
+Description  : Loads validated data from Bronze into Silver after applying
+               data type conversions and business validations.
 
-
+Execution    : Monthly / Incremental
+Dependencies : Bronze.RAW_TRIPS
+==============================================================================*/
 
 
 ----final code 
