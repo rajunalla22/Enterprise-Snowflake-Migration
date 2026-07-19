@@ -307,3 +307,27 @@ Initial full load completed successfully.
 - Simulate March incremental load
 - Validate Stream captures only new records
 - Execute incremental MERGE
+
+
+## Sprint 10 – Bronze & Silver Automation
+
+### Completed
+
+- Developed SP_LOAD_BRONZE
+- Developed SP_LOAD_SILVER
+- Implemented ETL_BATCH_LOG
+- Dynamic COPY INTO
+- Batch Processing
+- Duplicate Validation
+- ETL Logging
+- Exception Handling
+- Bronze Row Tracking
+- Silver Row Tracking
+
+### Result
+
+Bronze Rows Loaded : 3,513,649
+
+Silver Rows Loaded : 3,437,595
+
+Sprint Status : Completed

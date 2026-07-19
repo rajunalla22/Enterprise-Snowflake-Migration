@@ -84,3 +84,20 @@ AND FARE_AMOUNT > 0
 AND TOTAL_AMOUNT > 0
 AND TO_TIMESTAMP_NTZ(TPEP_PICKUP_DATETIME / 1000000)
     < TO_TIMESTAMP_NTZ(TPEP_DROPOFF_DATETIME / 1000000);
+
+
+    -- =====================================================
+-- Execute Silver Load
+-- =====================================================
+
+CALL AUDIT.SP_LOAD_SILVER
+(
+    'BATCH_2023_05'
+);
+
+SELECT *
+FROM AUDIT.ETL_BATCH_LOG;
+
+SELECT COUNT(*)
+FROM SILVER.TRIPS
+WHERE LOAD_BATCH_ID='BATCH_2023_05';
