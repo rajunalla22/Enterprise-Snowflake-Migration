@@ -1,7 +1,3 @@
-USE ROLE ACCOUNTADMIN;
-USE WAREHOUSE NYC_WH;
-USE DATABASE NYC_TAXI_DB;
-
 CREATE OR REPLACE PROCEDURE AUDIT.SP_LOAD_GOLD
 (
     P_BATCH_ID STRING
@@ -17,7 +13,6 @@ DECLARE
     V_BATCH_EXISTS      NUMBER DEFAULT 0;
     V_DIM_DATE_COUNT    NUMBER DEFAULT 0;
     V_DIM_LOCATION_COUNT NUMBER DEFAULT 0;
-    V_STREAM_COUNT      NUMBER DEFAULT 0;
     V_GOLD_ROWS         NUMBER DEFAULT 0;
 
 BEGIN
@@ -123,15 +118,16 @@ BEGIN
     END IF;
 
     ------------------------------------------------------------------
-    -- Check Stream
+    -- Check silver Table
     ------------------------------------------------------------------
 
     SELECT COUNT(*)
-    INTO :V_STREAM_COUNT
-    FROM SILVER.TRIPS_STREAM;
-
-    IF (V_STREAM_COUNT = 0) THEN
-        RETURN 'No New Records Found in Stream.';
+    INTO :V_GOLD_ROWS
+    FROM SILVER.VW_TRIPS_TRANSFORMED
+    WHERE LOAD_BATCH_ID = :P_BATCH_ID;
+    
+    IF (V_GOLD_ROWS = 0) THEN
+        RETURN 'No Records Found For Gold Load.';
     END IF;
 
     ------------------------------------------------------------------
@@ -260,7 +256,3 @@ EXCEPTION
 END;
 
 $$;
-
-
--- call AUDIT.SP_LOAD_GOLD('2023-01-01_00_00_00_000000');
-CALL NYC_TAXI_DB.AUDIT.SP_LOAD_GOLD('BATCH_2023_05')

@@ -1,0 +1,80 @@
+CREATE OR REPLACE PROCEDURE AUDIT.SP_RUN_PIPELINE(P_FILE_PATH VARCHAR)
+RETURNS VARCHAR
+LANGUAGE SQL
+EXECUTE AS CALLER
+AS
+$$
+DECLARE
+
+    V_BATCH_ID      STRING;
+    V_BATCH_MONTH   STRING;
+    V_STATUS        STRING;
+    V_BATCH_EXISTS NUMBER DEFAULT 0;
+
+BEGIN
+
+    V_BATCH_MONTH := REGEXP_SUBSTR(:P_FILE_PATH,'[0-9]{4}-[0-9]{2}');
+
+    V_BATCH_ID := 'BATCH_' || REPLACE(V_BATCH_MONTH,'-','_');
+
+
+    SELECT COUNT(*)
+    INTO :V_BATCH_EXISTS
+    FROM AUDIT.ETL_BATCH_LOG
+    WHERE BATCH_ID = :V_BATCH_ID
+      AND STATUS = 'SUCCESS';
+    
+    IF (V_BATCH_EXISTS > 0) THEN
+        RETURN 'Pipeline Skipped. Batch already processed : ' || V_BATCH_ID;
+    END IF;
+
+    CALL AUDIT.SP_LOAD_BRONZE(
+        :P_FILE_PATH,
+        :V_BATCH_ID
+    );
+
+    SELECT STATUS
+    INTO :V_STATUS
+    FROM AUDIT.ETL_BATCH_LOG
+    WHERE BATCH_ID = :V_BATCH_ID;
+
+    IF (:V_STATUS = 'FAILED') THEN
+        RETURN 'Pipeline Failed at Bronze Layer.';
+    END IF;
+
+    CALL AUDIT.SP_LOAD_SILVER(
+        :V_BATCH_ID
+    );
+
+    SELECT STATUS
+    INTO :V_STATUS
+    FROM AUDIT.ETL_BATCH_LOG
+    WHERE BATCH_ID = :V_BATCH_ID;
+
+    IF (:V_STATUS = 'FAILED') THEN
+        RETURN 'Pipeline Failed at Silver Layer.';
+    END IF;
+
+    CALL AUDIT.SP_LOAD_GOLD(
+        :V_BATCH_ID
+    );
+
+    SELECT STATUS
+    INTO :V_STATUS
+    FROM AUDIT.ETL_BATCH_LOG
+    WHERE BATCH_ID = :V_BATCH_ID;
+
+    IF (:V_STATUS = 'FAILED') THEN
+        RETURN 'Pipeline Failed at Gold Layer.';
+    END IF;
+
+    RETURN 'Pipeline Completed Successfully. Batch ID : ' || V_BATCH_ID;
+
+EXCEPTION
+
+WHEN OTHER THEN
+
+    RETURN 'Pipeline Execution Failed : ' || SQLERRM;
+
+END;
+$$;
